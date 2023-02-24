@@ -10,13 +10,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Hands
   - Water
   - UI
   - Player
   - Interactable
-  - 
-  - 
+  - GrabbableHandler
+  - Non-Interactable
   - 
   - 
   - 

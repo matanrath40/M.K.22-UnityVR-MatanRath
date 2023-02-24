@@ -24,6 +24,7 @@ public class MainMenuScript : MonoBehaviour
     public void onClickPlayGame()
     {
         Debug.Log("User Clicked on start game");
+        LoadNextScene();
     }
 
     public void onClickQuit()
@@ -34,6 +35,11 @@ public class MainMenuScript : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }
