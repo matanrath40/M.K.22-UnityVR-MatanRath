@@ -8,14 +8,14 @@ using TMPro;
 
 public class MainMenuScript : MonoBehaviour
 {
-
+    GameManager m_GameManager;
     public TextMeshProUGUI playerID;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        m_GameManager = GameManager.Instance;
         playerID = GameObject.Find("Player ID Label").GetComponent<TextMeshProUGUI>();
         playerID.SetText("Player ID: " + PlayerPrefs.GetInt("PlayerID"));
 
@@ -25,6 +25,7 @@ public class MainMenuScript : MonoBehaviour
     {
         Debug.Log("User Clicked on start game");
         LoadNextScene();
+        m_GameManager.StartTimer();
     }
 
     public void onClickQuit()

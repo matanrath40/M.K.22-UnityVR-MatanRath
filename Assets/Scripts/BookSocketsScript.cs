@@ -14,6 +14,8 @@ public class BookSocketsScript : MonoBehaviour
         m_BooksRiddle = BooksRiddle.Instance;
 
         m_Socket = GetComponent<XRSocketInteractor>();
+
+        //m_Socket.
     }
 
     public void OnSelectSocket()
