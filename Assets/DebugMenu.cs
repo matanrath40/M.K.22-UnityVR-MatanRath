@@ -1,14 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.SceneManagement;
 
 
 public class DebugMenu : MonoBehaviour
 {
+    private bool m_IsBooksSolved = false;
+    private bool m_IsSafeSolved = false;
+    private bool m_IsLightsSolved = false;
+    private bool m_IsKeysSolved = false;
+
+
     private BooksRiddle m_BooksRiddle;
 
-    // BooksRiddle GameObjects and Animators
+    // Buttons
+    //private game
+    [SerializeField]
+    private Button m_SolveLightsRiddle;
+    [SerializeField]
+    private Button m_SolveKeysRiddleButton;
+    [SerializeField]
+    private Button m_PressOnRedButtonRiddleButton;
+
+    // Books Riddle 
     [SerializeField]
     private GameObject m_Book16;
     private Animator m_Book16Animator;
@@ -25,14 +42,42 @@ public class DebugMenu : MonoBehaviour
     private GameObject m_Book10;
     private Animator m_Book10Animator;
 
-    // SafeRiddle
+    // Safe Riddle
     [SerializeField]
     private GameObject m_SafeDoor;
     private Animator m_SafeDoorAnimator;
-    
+
+    // Lights Riddle
+    [SerializeField]
+    private TableLamp m_TableLamp;
+    [SerializeField]
+    private LightBulb m_Bulb1;
+    [SerializeField]
+    private LightBulb m_Bulb2;
+    [SerializeField]
+    private LightBulb m_Bulb3;
+
+    // Keys Riddle
+    [SerializeField]
+    private Animator m_Key1Animator;
+    [SerializeField]
+    private Animator m_Key2Animator;
+
+    // Big Red Button
+    [SerializeField]
+    private BigRedButton m_BigRedButton;
+
+
+
     private void Start()
     {
         m_BooksRiddle = BooksRiddle.Instance;
+
+        m_SolveLightsRiddle.interactable = false;
+        m_SolveKeysRiddleButton.interactable = false;
+        m_PressOnRedButtonRiddleButton.interactable = false;
+        
+        //Listm_SolveBookButton.GetComponents<>();
 
         //m_Book16 = GameObject.Find("Book_16");
         m_Book16Animator = m_Book16.GetComponent<Animator>();
@@ -67,11 +112,71 @@ public class DebugMenu : MonoBehaviour
         m_Book22Animator.enabled = true;
         m_Book10Animator.enabled = true;
 
+        m_IsBooksSolved = true;
+
+        if (m_IsSafeSolved)
+        {
+            enableLightsButton();
+
+        }
+
     }
 
     public void OnPressSolveSafeRiddle()
     {
         m_SafeDoorAnimator.SetTrigger("isPressedCorrectCode");
+
+        m_IsSafeSolved = true;
+
+        if (m_IsBooksSolved)
+        {
+            enableLightsButton();
+
+        }
+
+    }
+
+    public void OnPressSolveLightsRiddle()
+    {
+        m_TableLamp.TurnOnLamp();
+        m_Bulb1.TurnOnBulb();
+        m_Bulb2.TurnOnBulb();
+        m_Bulb3.TurnOnBulb();
+
+        m_IsLightsSolved = true;
+        m_SolveKeysRiddleButton.interactable = true;
+
+    }
+
+    public void OnPressSolveKeysRiddle()
+    {
+        m_Key1Animator.enabled = true;
+        m_Key2Animator.enabled = true;
+
+        m_IsKeysSolved = true;
+        m_PressOnRedButtonRiddleButton.interactable = true;
+    }
+
+    public void OnPressSolveRedButton()
+    {
+        m_BigRedButton.OnPressButton();
+    }
+
+    private void enableLightsButton()
+    {
+        m_SolveLightsRiddle.interactable = true;
+
+    }
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
 

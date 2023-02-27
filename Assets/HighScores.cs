@@ -25,7 +25,7 @@ public class HighScores : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_BestScoresString = PlayerPrefs.GetString("BestScores", "");
+        m_BestScoresString = PlayerPrefs.GetString("BestScores", "-1:9999999;-1:9999999;-1:9999999");
         splitBestScoresString(m_BestScoresString);
         setScores();
         setScoresOnUI();

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
-
-
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    //public static GameObject XROrigin;
+
     private Scene m_CurrentScene;
+
+    private GameObject m_DebugMenuUI;
 
     private float m_StartTime;
 
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -33,16 +37,32 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //if (XROrigin == null)
+        //{
+        //    // If a reference to the XR origin does not already exist, set it to the child of this GameObject
+        //    XROrigin = FindGameObjectInScene("XR Origin");
+
+        //    // Make the XR origin persistent between scenes
+        //    DontDestroyOnLoad(XROrigin);
+        //}
+        //else
+        //{
+        //    // If a reference to the XR origin already exists, destroy this GameObject (so that there is only one instance of the XR origin in the scene)
+        //    Destroy(XROrigin);
+        //}
+
     }
 
-    public void StartTimer()
+    public void StartTimer() // 21.24.07 (3.93) ---- 21.24.25 (21
     {
         m_StartTime = Time.time;
+        Debug.Log("Starting Time: " + m_StartTime);
     }
 
     public void FinishGame()
     {
         float totalGameTime = Time.time - m_StartTime;
+        //deb
         saveScore(totalGameTime);
         Debug.Log("Overall time to solve: " + totalGameTime);
 
@@ -67,7 +87,7 @@ public class GameManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("PlayerID", playerUniqueID);
-
+    
     }
 
     private void saveScore(float i_TotalGameTime)
@@ -75,33 +95,23 @@ public class GameManager : MonoBehaviour
 
         string playerIdAndTimeString = PlayerPrefs.GetInt("PlayerID").ToString() + ":" + i_TotalGameTime.ToString();
 
-        string bestScores = PlayerPrefs.GetString("BestScores", "");
-
-        if (bestScores == "") // case there is no bestScores
-        {
-            PlayerPrefs.SetString("BestScores", playerIdAndTimeString + ";-1:99999999;-2:99999999");
-            PlayerPrefs.Save();
-            return;
-        }
+        string bestScores = PlayerPrefs.GetString("BestScores", "-1:9999999;-1:9999999;-1:9999999");
 
         string[] bestScoresArray = bestScores.Split(';');
+        
 
-        string[] newScoresArray = new string[3];
+        string[] newScoresArray = new string[bestScoresArray.Length];
 
         int insertIndex = -1;
 
         for (int i = 0; i < bestScoresArray.Length; i++)
         {
-            if (bestScoresArray[i] == "")
-            {
-                insertIndex = i;
-                break;
-            }
+
 
             string[] parts = bestScoresArray[i].Split(':');
-            float currentTime = float.Parse(parts[i]);
+            float currentTime = float.Parse(parts[1]);
 
-            if (i_TotalGameTime > currentTime)
+            if (i_TotalGameTime < currentTime)
             {
                 insertIndex = i;
                 break;
@@ -109,13 +119,15 @@ public class GameManager : MonoBehaviour
 
         }
 
-        if (insertIndex >= 0)
+        if (insertIndex >= 0) // 0,1,2
         {
-            for (int i = 0; i < insertIndex; i++)
+            for (int i = 0; i <=  insertIndex; i++)
             {
                 newScoresArray[i] = bestScoresArray[i];
             }
-            newScoresArray[insertIndex] = bestScores;
+            
+            newScoresArray[insertIndex] = playerIdAndTimeString;
+
             for (int i = insertIndex + 1; i < newScoresArray.Length; i++)
             {
                 newScoresArray[i] = bestScoresArray[i - 1];
@@ -127,7 +139,7 @@ public class GameManager : MonoBehaviour
             {
                 newScoresArray[i] = bestScoresArray[i];
             }
-            newScoresArray[newScoresArray.Length - 1] = bestScores;
+
         }
 
         string newBestScoresString = string.Join(";", newScoresArray);
@@ -137,6 +149,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+
 
     public void onSolvingLightsRiddle()
     {
@@ -148,6 +161,26 @@ public class GameManager : MonoBehaviour
         return m_HasSolvedLightsRiddle;
     }
 
-    
+    private GameObject FindGameObjectInScene(string name)
+    {
+        // Get the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
 
+        // Iterate over all root GameObjects in the scene hierarchy
+        foreach (GameObject rootGameObject in currentScene.GetRootGameObjects())
+        {
+            // Check if the root GameObject has a child GameObject with the given name
+            Transform childTransform = rootGameObject.transform.Find(name);
+            if (childTransform != null)
+            {
+                // Return the child GameObject if it is found
+                return childTransform.gameObject;
+            }
+        }
+
+        // Return null if the GameObject is not found
+        return null;
+    }
 }
+
+

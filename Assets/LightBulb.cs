@@ -39,22 +39,29 @@ public class LightBulb : MonoBehaviour
 
         if (isOn)
         {
-            isOn = false;
-            m_BulbRenderer.material = m_BulbOffMaterial;
-            m_BulbLight.enabled = false;
-            LampsRiddle.Instance.RemoveLamp(m_ID);
-            Debug.Log("Bulb is turning off...");
+            TurnOffBulb();
 
         } else
         {
-            isOn = true;
-            m_BulbRenderer.material = m_BulbOnMaterial;
-            m_BulbLight.enabled = true;
-            LampsRiddle.Instance.AddLamp(m_ID);
-            Debug.Log("Bulb is turning on...");
-
-
-
+            TurnOnBulb();
         }
+    }
+
+    public void TurnOnBulb()
+    {
+        isOn = true;
+        m_BulbRenderer.material = m_BulbOnMaterial;
+        m_BulbLight.enabled = true;
+        LampsRiddle.Instance.AddLamp(m_ID);
+        Debug.Log("Bulb is turning on...");
+    }
+
+    public void TurnOffBulb()
+    {
+        isOn = false;
+        m_BulbRenderer.material = m_BulbOffMaterial;
+        m_BulbLight.enabled = false;
+        LampsRiddle.Instance.RemoveLamp(m_ID);
+        Debug.Log("Bulb is turning off...");
     }
 }

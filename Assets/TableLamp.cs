@@ -35,18 +35,28 @@ public class TableLamp : MonoBehaviour
     {
         if (isOn)
         {
-            m_InsideLight.enabled = false;
-            m_OutsideLight.enabled = false;
-            isOn = false;
-            LampsRiddle.Instance.RemoveLamp(m_ID);
+            TurnOffLamp();
 
         } else
         {
-            m_InsideLight.enabled = true;
-            m_OutsideLight.enabled = true;
-            isOn = true;
-            LampsRiddle.Instance.AddLamp(m_ID);
+            TurnOnLamp();
 
         }
+    }
+
+    public void TurnOnLamp()
+    {
+        m_InsideLight.enabled = true;
+        m_OutsideLight.enabled = true;
+        isOn = true;
+        LampsRiddle.Instance.AddLamp(m_ID);
+    }
+
+    public void TurnOffLamp()
+    {
+        m_InsideLight.enabled = false;
+        m_OutsideLight.enabled = false;
+        isOn = false;
+        LampsRiddle.Instance.RemoveLamp(m_ID);
     }
 }

@@ -7,6 +7,8 @@ public class RedButtonRiddle : MonoBehaviour
     public static RedButtonRiddle Instance;
 
     private BigRedButton m_BigRedButton;
+    [SerializeField]
+    private AudioSource m_BigRedButtonAudioSource;
     //private GameObject m_KeySocket;
     //private GameObject m_KeySocket1;
 
