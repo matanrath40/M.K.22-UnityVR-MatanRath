@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    //public static GameObject XROrigin;
+    public float m_TotalGameTime;
+
+    TrialLogger trialLogger;
 
     private Scene m_CurrentScene;
 
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        //PlayerPrefs.DeleteAll();
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -37,21 +39,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //if (XROrigin == null)
-        //{
-        //    // If a reference to the XR origin does not already exist, set it to the child of this GameObject
-        //    XROrigin = FindGameObjectInScene("XR Origin");
-
-        //    // Make the XR origin persistent between scenes
-        //    DontDestroyOnLoad(XROrigin);
-        //}
-        //else
-        //{
-        //    // If a reference to the XR origin already exists, destroy this GameObject (so that there is only one instance of the XR origin in the scene)
-        //    Destroy(XROrigin);
-        //}
-
     }
+
+    
 
     public void StartTimer() // 21.24.07 (3.93) ---- 21.24.25 (21
     {
@@ -61,10 +51,11 @@ public class GameManager : MonoBehaviour
 
     public void FinishGame()
     {
-        float totalGameTime = Time.time - m_StartTime;
-        //deb
-        saveScore(totalGameTime);
-        Debug.Log("Overall time to solve: " + totalGameTime);
+        m_TotalGameTime = Time.time - m_StartTime;
+
+        trialLogger.EndTrial(m_TotalGameTime);
+        saveScore(m_TotalGameTime);
+        Debug.Log("Overall time to solve: " + m_TotalGameTime);
 
 
     }
@@ -76,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         int playerUniqueID;
 
         if(!PlayerPrefs.HasKey("PlayerID"))
@@ -87,7 +79,10 @@ public class GameManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("PlayerID", playerUniqueID);
-    
+
+        trialLogger = GetComponent<TrialLogger>();
+        trialLogger.Initialize(playerUniqueID.ToString());
+
     }
 
     private void saveScore(float i_TotalGameTime)

@@ -10,6 +10,7 @@ public class MainMenuScript : MonoBehaviour
 {
     GameManager m_GameManager;
     public TextMeshProUGUI playerID;
+    TrialLogger trialLogger;
 
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class MainMenuScript : MonoBehaviour
     public void onClickPlayGame()
     {
         Debug.Log("User Clicked on start game");
+        trialLogger.StartTrial();
         LoadNextScene();
         m_GameManager.StartTimer();
     }

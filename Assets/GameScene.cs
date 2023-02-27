@@ -11,17 +11,6 @@ public class GameScene : MonoBehaviour
     [SerializeField]
     private GameObject m_XROrigin;
 
-    private void Awake()
-    {
-        //if (XROriginManager.XROrigin != null)
-        //{
-        //    // Set the XR origin settings to match your desired settings
-        //    //XRSettings.SetTrackingOriginMode(XRSettingsTrackingOriginMode.Floor);
-        //    //XRSettings.SetReferencePoint(XRManager.XROrigin.transform);
-        //    m_XROrigin = XROriginManager.XROrigin;
-            
-        //}
-    }
     void Start()
     {
         if (Application.isEditor)
@@ -30,6 +19,7 @@ public class GameScene : MonoBehaviour
         } else
         {
             m_DebugMenuUI.SetActive(false);
+
         }
 
         if (XROriginManager.Instnance != null)

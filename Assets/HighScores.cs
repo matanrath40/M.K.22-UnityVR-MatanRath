@@ -26,10 +26,11 @@ public class HighScores : MonoBehaviour
     void Start()
     {
         m_BestScoresString = PlayerPrefs.GetString("BestScores", "-1:9999999;-1:9999999;-1:9999999");
+        Debug.Log("MATAN DEBUG - " + m_BestScoresString);
         splitBestScoresString(m_BestScoresString);
         setScores();
         setScoresOnUI();
-
+        // 46:14.11927;48:14.51535;3:18.09625;5:21.23636;55:38.31058;49:41.49091;4:42.19856;56:71.87001
     }
 
     private void splitBestScoresString(string i_BestScoresString)
@@ -38,6 +39,7 @@ public class HighScores : MonoBehaviour
         {
             return;
         }
+
         string[] scoreStrings = i_BestScoresString.Split(';');
 
         m_NumberOfHighScores = scoreStrings.Length;
