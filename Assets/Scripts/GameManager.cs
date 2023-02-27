@@ -9,9 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public float m_TotalGameTime;
-
     TrialLogger trialLogger;
+
+    public float m_TotalGameTime;
 
     private Scene m_CurrentScene;
 
@@ -39,14 +39,41 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+
     }
 
-    
+    void Start()
+    {
+
+        int playerUniqueID;
+
+        if (!PlayerPrefs.HasKey("PlayerID"))
+        {
+            playerUniqueID = 1;
+        }
+        else
+        {
+            playerUniqueID = PlayerPrefs.GetInt("PlayerID") + 1;
+        }
+
+        PlayerPrefs.SetInt("PlayerID", playerUniqueID);
+
+        trialLogger = TrialLogger.Instance;
+
+
+        //List<string> columnList = new List<string>();
+        //trialLogger = GetComponent<TrialLogger>();
+        //trialLogger.Initialize(playerUniqueID.ToString(), columnList);
+
+    }
+
+
 
     public void StartTimer() // 21.24.07 (3.93) ---- 21.24.25 (21
     {
         m_StartTime = Time.time;
         Debug.Log("Starting Time: " + m_StartTime);
+        //trialLogger.StartTrial();
     }
 
     public void FinishGame()
@@ -65,25 +92,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void Start()
-    {
 
-        int playerUniqueID;
-
-        if(!PlayerPrefs.HasKey("PlayerID"))
-        {
-            playerUniqueID = 1;
-        } else
-        {
-            playerUniqueID = PlayerPrefs.GetInt("PlayerID") + 1;
-        }
-
-        PlayerPrefs.SetInt("PlayerID", playerUniqueID);
-
-        trialLogger = GetComponent<TrialLogger>();
-        trialLogger.Initialize(playerUniqueID.ToString());
-
-    }
 
     private void saveScore(float i_TotalGameTime)
     {

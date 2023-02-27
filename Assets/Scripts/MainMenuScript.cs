@@ -20,6 +20,10 @@ public class MainMenuScript : MonoBehaviour
         playerID = GameObject.Find("Player ID Label").GetComponent<TextMeshProUGUI>();
         playerID.SetText("Player ID: " + PlayerPrefs.GetInt("PlayerID"));
 
+        //List<string> columnList = new List<string>();
+        trialLogger = TrialLogger.Instance;
+        trialLogger.Initialize(PlayerPrefs.GetInt("PlayerID").ToString());
+
     }
 
     public void onClickPlayGame()

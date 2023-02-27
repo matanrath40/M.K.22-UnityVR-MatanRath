@@ -5,7 +5,8 @@ using System.IO;
 
 public class TrialLogger : MonoBehaviour {
 
-    public int currentTrialNumber = 0;    
+    //public int currentTrialNumber = 0;    
+    public static TrialLogger Instance;
     List<string> header;
     [HideInInspector]
     public Dictionary<string, string> trial;
@@ -20,6 +21,18 @@ public class TrialLogger : MonoBehaviour {
     
     // Use this for initialization
     void Awake () {
+
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         outputFolder = Application.dataPath + "/StreamingAssets" + "/output";
         if (!Directory.Exists(outputFolder))
         {
@@ -36,6 +49,9 @@ public class TrialLogger : MonoBehaviour {
     public void Initialize(string participantID)
     {
         ppid = participantID;
+        //header = customHeader;
+        header = new List<string>();
+        Debug.Log("matan debug - " + ppid);
         InitHeader();
         InitDict();
         output = new List<string>();
@@ -45,7 +61,7 @@ public class TrialLogger : MonoBehaviour {
 
     private void InitHeader()
     {
-        header.Insert(0, "player_id");
+        header.Insert(0, "ppid");
         header.Insert(1, "game_time");
     }
 
@@ -63,7 +79,7 @@ public class TrialLogger : MonoBehaviour {
         trialStarted = true;
         //currentTrialNumber += 1;
         InitDict();
-        trial["player_id"] = currentTrialNumber.ToString();
+        trial["ppid"] = ppid;
 
     }
 

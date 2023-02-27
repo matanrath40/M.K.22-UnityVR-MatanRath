@@ -2494,6 +2494,7 @@ GameObject:
   - component: {fileID: 275426830}
   - component: {fileID: 275426835}
   - component: {fileID: 275426836}
+  - component: {fileID: 275426837}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -2630,6 +2631,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TotalGameTime: 0
+--- !u!114 &275426837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275426829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df272506d9e2c04281ed69d58a148d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTrialNumber: 0
+  outputFolder: 
 --- !u!1 &291789044
 GameObject:
   m_ObjectHideFlags: 0
