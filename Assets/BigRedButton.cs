@@ -16,11 +16,12 @@ public class BigRedButton : MonoBehaviour
     private GameObject m_Socket1;    
     [SerializeField]
     private GameObject m_Socket2;
-    //private RedButtonRiddle m_RedButtonRiddle;
+    private RedButtonRiddle m_RedButtonRiddle;
 
     private void Start()
     {
         m_GameManager = GameManager.Instance;
+        m_RedButtonRiddle = RedButtonRiddle.Instance;
         m_Socket1.SetActive(false);
         m_Socket2.SetActive(false);
 
@@ -46,6 +47,8 @@ public class BigRedButton : MonoBehaviour
     {
         m_RedButtonAnimator.SetTrigger("PressedOnRedButton");
         Debug.Log("You won!");
+        m_RedButtonRiddle.StopAlert();
+        m_RedButtonRiddle.ShowWinningUI();
         m_GameManager.FinishGame();
     }
 

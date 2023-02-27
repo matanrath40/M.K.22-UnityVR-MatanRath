@@ -17,7 +17,6 @@ public class DebugMenu : MonoBehaviour
     private BooksRiddle m_BooksRiddle;
 
     // Buttons
-    //private game
     [SerializeField]
     private Button m_SolveLightsRiddle;
     [SerializeField]
@@ -41,11 +40,15 @@ public class DebugMenu : MonoBehaviour
     [SerializeField]
     private GameObject m_Book10;
     private Animator m_Book10Animator;
+    [SerializeField]
+    private AudioSource m_TVStandAudioSource;
 
     // Safe Riddle
     [SerializeField]
     private GameObject m_SafeDoor;
     private Animator m_SafeDoorAnimator;
+    [SerializeField]
+    private AudioSource m_SafeAudioSource;
 
     // Lights Riddle
     [SerializeField]
@@ -111,6 +114,8 @@ public class DebugMenu : MonoBehaviour
         m_Book13Animator.enabled = true;
         m_Book22Animator.enabled = true;
         m_Book10Animator.enabled = true;
+        m_TVStandAudioSource.Play();
+
 
         m_IsBooksSolved = true;
 
@@ -125,6 +130,8 @@ public class DebugMenu : MonoBehaviour
     public void OnPressSolveSafeRiddle()
     {
         m_SafeDoorAnimator.SetTrigger("isPressedCorrectCode");
+        m_SafeAudioSource.Play();
+
 
         m_IsSafeSolved = true;
 

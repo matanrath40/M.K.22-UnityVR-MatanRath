@@ -16,6 +16,9 @@ public class Coder : MonoBehaviour
     [SerializeField]
     private GameObject door;
 
+    [SerializeField]
+    private AudioSource m_SafeAudioSource;
+
     private Animator m_DoorAnimator;
 
     private string m_CorrectPassword = "120296";
@@ -65,6 +68,7 @@ public class Coder : MonoBehaviour
         {
             coderUI.enabled = false;
             m_DoorAnimator.SetTrigger("isPressedCorrectCode");
+            m_SafeAudioSource.Play();
             m_HasOpenedSafe = true;
             return true;
         }

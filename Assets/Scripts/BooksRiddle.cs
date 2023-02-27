@@ -8,6 +8,9 @@ public class BooksRiddle : MonoBehaviour
 
     private TVStand m_TVStand;
 
+    [SerializeField]
+    private AudioSource m_TVStandAudioSource;
+
     private int[] booksAtSockets = new int[5] { -1, -1, -1, -1, -1 };
 
 
@@ -34,6 +37,7 @@ public class BooksRiddle : MonoBehaviour
     private void onBookRiddleSolved()
     {
         Debug.Log("Books Riddle Solved!");
+        m_TVStandAudioSource.Play();
         m_TVStand.OpenDoor();
     }
 

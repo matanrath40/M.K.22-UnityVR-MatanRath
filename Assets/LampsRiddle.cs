@@ -39,7 +39,7 @@ public class LampsRiddle : MonoBehaviour
                 Debug.Log("Lamps Riddle Solved!");
                 hasSolved = true;
                 RedButtonRiddle.Instance.EnableSockets();
-                //RedButtonRiddle.Instance.
+                RedButtonRiddle.Instance.PlayAlert();
                 GameManager.Instance.onSolvingLightsRiddle();
             }
         }
