@@ -13,7 +13,8 @@ Designed exclusively for Oculus Quest, "Back To M.K 22" challenges players with 
 
 ## Getting Started
 
-Just download the .apk file from this url, and install on your Oculus Quest.
+Just download the .apk file from this url, and install on your Oculus Quest:
+https://drive.google.com/file/d/1Euz-EjMeoCjMjOZ1OYWUTkHhdZD0Z-Qg/view?usp=sharing
 
 ### Prerequisites
 
@@ -26,6 +27,28 @@ Ensure you have the following to play "Back To M.K 22":
 ### Gameplay (Don't watch before solving!):
 
 https://github.com/matanrath40/M.K.22-UnityVR-MatanRath/assets/63113323/bf65e68c-a85f-40e1-b236-a06273824796
+
+### Documentation (part of the submission of the project):
+
+### Dev Log
+
+#### Important Scenes:
+- **MainMenu:** The first scene the user sees when opening the game. It contains three submenus:
+  - **Play/Quit:** Start or exit the game.
+  - **Settings:** Adjust movement settings within the VR scene.
+  - **High Scores** 
+- **Game:** The main game scene, featuring three riddles. Solving these riddles allows the player to access and press the red button to win the game.
+
+#### Important Scripts:
+- **CloudGeneratorScript:** Manages cloud creation and animations.
+- **GameManager:** Transfers data and settings from the MainMenu to the Game scene.
+- **Riddle Managers:** Each script manages the logic and behavior of its respective riddle, triggering the next one as needed.
+- **Debug:** Manages the debug menu, which is only available in Editor mode.
+- **Coder:** Handles the coder on the safe.
+
+#### Bugs:
+- **Game Restart Issues:** Restarting the game within the same session leads to bugs. Issues with XROrigin settings result in improper raycast functionality and occasional sticking points. A workaround is to exit the application and start it again, as there's currently no effective method to transfer XROrigin settings between the MainMenu and Game scenes.
+
 
 
 ## Acknowledgments
